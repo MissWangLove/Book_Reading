@@ -81,7 +81,46 @@ IDEA，STS，Eclipse的使用，重点是IDEA的使用，更加简单智能。
 配置文件： 支持properties和yaml两种，前者优先级高于后者
 
 配置多环境： 需要有主配置文件，在主配置文件中指定环境，spring.profiles.active来指定。
-     
+
+### 分层开发web应用程序
+
+分层开发，mvc模式。
+
+mvc：
+
+    - model： 实体bean
+    - view： 解析、处理、显示内容
+    - Controller： 处理视图响应
+   
+优点在于：页面于业务分离，方便扩展复用。
+
+工作流程：容器接收到请求，由前端控制器DispatcherServlet处理，经由HandlerMapping（处理器映射器）去匹配url路径，之后返回
+DispatcherServlet，再次转交给HandlerAdapter（处理器适配器），HandlerAdapter去执行对应的controller方法（handler），执行完成
+会返回一个ModerAndView，DispatcherServlet会转交给ViewResolver去解析ModerAndView或者Exception，调用render方法渲染页面并返回。
+
+三层架构：
+
+    - 表现层（UI）： MVC就是属于UI层的
+    - 业务逻辑层（Service）
+    - 数据访问层（DAO/Repository）
+    
+不过在前后端分离的今天，工作一年半的时间了，没有写过view的代码了，我好像不是一个合格的程序员。
+
+#### 控制器
+
+主要了解的就是注解了：
+
+    - @Controller： 标注在类上，定义控制器类
+    - @RestController： Rest风格控制器
+    - @RequestMapping： 类或方法上，请求地址映射注解，使用该注解的方法才是真正的处理请求的处理器。重点在于RequestMapping的属性
+        - value 请求地址
+        - path  同value
+        - consumes 指定提交内容的类型
+        - produces 指定返回内容的类型
+        - params 指定请求必须包含的参数值
+        - headers 指定请求头必须包含的指定值
+        - method 指定请求类型  GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE
+    @PathVariable： 请求URL模板变量映射到方法参数上
 
 
 
